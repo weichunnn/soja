@@ -1,5 +1,5 @@
 import multiprocessing as mp
-
+import sys
 
 def hash(element):
     total = 0
@@ -152,5 +152,13 @@ def read_csv(filename):
 
 
 if __name__ == "__main__":
+    old_stdout = sys.stdout
+    log_file = open("message.log","w")
+    sys.stdout = log_file
+
     R, S = read_csv("test/movies.csv"), read_csv("test/ratings.csv")
     join_res = soja(R, S, mp.cpu_count())
+    print(join_res)
+
+    sys.stdout = old_stdout
+    log_file.close()
