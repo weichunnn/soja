@@ -1,5 +1,7 @@
 import multiprocessing as mp
 import sys
+import csv
+
 
 def hash(element):
     total = 0
@@ -48,30 +50,36 @@ def roundrobin_partition(data, number_of_processor):
     return global_partitions
 
 
-def worker(input_queue, next_queue, max_iteration, return_result):
+def worker(input_queue, next_queue, max_iteration, output_file_path):
     iteration = 0
     S_table = None
     S_len = 0
+
+    output_file = open(output_file_path, "a")
+    csv_writer = csv.writer(output_file)
+
     while True:
         R, S, dangling_tuples = input_queue.get()  # blocking until there is data
         if iteration == max_iteration:
             dangling = []
             for i in dangling_tuples:
                 res = R[i] + tuple([None] * (S_len - 1))
-                return_result.append(res)
+                csv_writer.writerow(res)
             break
         if not S_table:
             S_table = create_hash_table(S)
             S_len = len(S[0])
 
         result, updated_dangling_tuples = process(R, S_table, dangling_tuples)
-        return_result += result
+        csv_writer.writerows(result)
 
         next_queue.put((R, None, updated_dangling_tuples))
         iteration += 1
 
+    output_file.close()
 
-def soja(R, S, number_of_processor):
+
+def soja(R, S, number_of_processor, output_file_path):
     # prerequisite that R and S are partioned equally
     R_partitions = roundrobin_partition(R, number_of_processor)
     S_partitions = roundrobin_partition(S, number_of_processor)
@@ -79,8 +87,7 @@ def soja(R, S, number_of_processor):
     process_queues = [mp.Queue() for i in range(number_of_processor)]
     process_list = []
 
-    manager = mp.Manager()
-    return_result = manager.list()
+    open(output_file_path, "w").close()  # clear file
 
     for i in range(number_of_processor):
         next_node = (i + 1) % number_of_processor
@@ -90,7 +97,7 @@ def soja(R, S, number_of_processor):
                 process_queues[i],
                 process_queues[next_node],
                 number_of_processor,
-                return_result,
+                output_file_path,
             ),
         )
         process_list.append(p)
@@ -110,10 +117,8 @@ def soja(R, S, number_of_processor):
     for p in process_list:
         p.join()
 
-    return return_result
 
-
-def get_dataset():
+def get_test_dataset():
     R = [
         (8, "Adele"),
         (22, "Bob"),
@@ -152,13 +157,9 @@ def read_csv(filename):
 
 
 if __name__ == "__main__":
-    old_stdout = sys.stdout
-    log_file = open("message.log","w")
-    sys.stdout = log_file
-
     R, S = read_csv("test/movies.csv"), read_csv("test/ratings.csv")
-    join_res = soja(R, S, mp.cpu_count())
-    print(join_res)
 
-    sys.stdout = old_stdout
-    log_file.close()
+    output_file_path = "output.csv"
+    cpu_count = mp.cpu_count()
+
+    soja(R, S, cpu_count, output_file_path)
