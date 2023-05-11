@@ -1,6 +1,9 @@
+import argparse
+import csv
 import multiprocessing as mp
 import sys
-import csv
+import time
+import tracemalloc
 
 
 def hash(element):
@@ -71,8 +74,9 @@ def worker(input_queue, next_queue, max_iteration, output_file_path):
             S_len = len(S[0])
 
         result, updated_dangling_tuples = process(R, S_table, dangling_tuples)
+        now = time.time()
         csv_writer.writerows(result)
-
+        print("elapsed", time.time() - now)
         next_queue.put((R, None, updated_dangling_tuples))
         iteration += 1
 
@@ -83,6 +87,9 @@ def soja(R, S, number_of_processor, output_file_path):
     # prerequisite that R and S are partioned equally
     R_partitions = roundrobin_partition(R, number_of_processor)
     S_partitions = roundrobin_partition(S, number_of_processor)
+
+    tracemalloc.start()
+    start_time = time.perf_counter()
 
     process_queues = [mp.Queue() for i in range(number_of_processor)]
     process_list = []
@@ -117,37 +124,14 @@ def soja(R, S, number_of_processor, output_file_path):
     for p in process_list:
         p.join()
 
+    elpased_time = time.perf_counter() - start_time
 
-def get_test_dataset():
-    R = [
-        (8, "Adele"),
-        (22, "Bob"),
-        (16, "Clement"),
-        (23, "Dave"),
-        (11, "Ed"),
-        (25, "Fung"),
-        (3, "Goel"),
-        (17, "Harry"),
-        (14, "Irene"),
-        (2, "Joanna"),
-        (6, "Kelly"),
-        (20, "Lim"),
-        (1, "Meng"),
-        (5, "Noor"),
-        (19, "Omar"),
-    ]
-    S = [
-        (8, "Arts"),
-        (15, "Business"),
-        (2, "CompSc"),
-        (12, "Dance"),
-        (7, "Engineering"),
-        (21, "Finance"),
-        (10, "Geology"),
-        (11, "Health"),
-        (18, "IT"),
-    ]
-    return R, S
+    snapshot = tracemalloc.take_snapshot()
+    top_stats = snapshot.statistics("lineno")
+
+    total_memory = sum(stat.size for stat in top_stats)
+
+    return elpased_time, total_memory
 
 
 def read_csv(filename):
@@ -157,9 +141,27 @@ def read_csv(filename):
 
 
 if __name__ == "__main__":
-    R, S = read_csv("test/movies.csv"), read_csv("test/ratings.csv")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--R-file", help="R file", required=True)
+    parser.add_argument("--S-file", help="S file", required=True)
+    parser.add_argument(
+        "--concurrency-count",
+        help="Number of parallel concurrent run",
+        required=False,
+        type=int,
+        default=mp.cpu_count(),
+    )
+    parser.add_argument(
+        "--output-file",
+        help="Output file path",
+        required=False,
+        default="output-soja.csv",
+    )
+    args = parser.parse_args()
+    print(args)
+    R, S = read_csv(args.R_file), read_csv(args.S_file)
 
-    output_file_path = "output.csv"
-    cpu_count = mp.cpu_count()
-
-    soja(R, S, cpu_count, output_file_path)
+    elpased_time, memory_usage = soja(R, S, args.concurrency_count, args.output_file)
+    print(f"Memory usage: {memory_usage} bytes or {memory_usage / 1024 / 1024} MB")
+    print(f"Elapsed time: {elpased_time} seconds")
+    print("-------------------------")
