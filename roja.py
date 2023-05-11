@@ -46,15 +46,15 @@ def H(r):
     Return:
     result -- the hash index of the record r
     """
+    return r[0]
+    # # Convert the value of the join attribute into the digits
+    # digits = [int(d) for d in str(r[0])]
 
-    # Convert the value of the join attribute into the digits
-    digits = [int(d) for d in str(r[0])]
+    # # 23 = 2 + 3 = 5
 
-    # 23 = 2 + 3 = 5
-
-    # Calulate the sum of elemenets in the digits
-    # sums the first and second digits of the join attribute of a record
-    return sum(digits)
+    # # Calulate the sum of elemenets in the digits
+    # # sums the first and second digits of the join attribute of a record
+    # return sum(digits)
 
 
 def outer_join(L, R, join="left"):
@@ -183,7 +183,7 @@ if __name__ == "__main__":
         "--output-file",
         help="Output file path",
         required=False,
-        default="output-soja.csv",
+        default="output-roja.csv",
     )
     args = parser.parse_args()
     R, S = read_csv(args.R_file), read_csv(args.S_file)

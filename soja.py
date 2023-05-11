@@ -7,10 +7,11 @@ import tracemalloc
 
 
 def hash(element):
-    total = 0
-    for digit in str(element[0]):
-        total += int(digit)
-    return total
+    # total = 0
+    return element[0]
+    # for digit in str(element[0]):
+    #     total += int(digit)
+    # return total
 
 
 def create_hash_table(table):
@@ -35,7 +36,6 @@ def lookup(element, hash_table):
 
 def process(R, hash_table, dangling_tuples):
     result = []
-
     for i, element in enumerate(R):
         is_exist, matches = lookup(element, hash_table)
         if is_exist:
@@ -63,20 +63,19 @@ def worker(input_queue, next_queue, max_iteration, output_file_path):
 
     while True:
         R, S, dangling_tuples = input_queue.get()  # blocking until there is data
+        if not S_table:
+            S_table = create_hash_table(S)
+            S_len = len(S[0])
         if iteration == max_iteration:
             dangling = []
             for i in dangling_tuples:
                 res = R[i] + tuple([None] * (S_len - 1))
                 csv_writer.writerow(res)
             break
-        if not S_table:
-            S_table = create_hash_table(S)
-            S_len = len(S[0])
 
         result, updated_dangling_tuples = process(R, S_table, dangling_tuples)
         now = time.time()
         csv_writer.writerows(result)
-        print("elapsed", time.time() - now)
         next_queue.put((R, None, updated_dangling_tuples))
         iteration += 1
 
@@ -91,7 +90,7 @@ def soja(R, S, number_of_processor, output_file_path):
     tracemalloc.start()
     start_time = time.perf_counter()
 
-    process_queues = [mp.Queue() for i in range(number_of_processor)]
+    process_queues = [mp.Queue(maxsize=1) for i in range(number_of_processor)]
     process_list = []
 
     open(output_file_path, "w").close()  # clear file
@@ -108,7 +107,7 @@ def soja(R, S, number_of_processor, output_file_path):
             ),
         )
         process_list.append(p)
-
+    
     for process in process_list:
         process.start()
 
@@ -158,7 +157,6 @@ if __name__ == "__main__":
         default="output-soja.csv",
     )
     args = parser.parse_args()
-    print(args)
     R, S = read_csv(args.R_file), read_csv(args.S_file)
 
     elpased_time, memory_usage = soja(R, S, args.concurrency_count, args.output_file)
