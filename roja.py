@@ -10,10 +10,8 @@ def hash_distribution(T, n):
 
     T -- a list of records
     n -- number of partitions
-
     """
 
-    # Define a simple hash function for demonstration
     def s_hash(x, n):
         h = x % n
         return h
@@ -22,13 +20,9 @@ def hash_distribution(T, n):
     for t in T:
         # hashes the join attribute
         h_key = s_hash(int(t[0]), n)
-        # checks if the hash value already exists as a key
         if h_key in result.keys():
-            # adds the record to the existing partition
             result[h_key].add(t)
         else:
-            # creates a new partition with the hash value as key
-            # adds the record as a tuple
             result[h_key] = {tuple(t)}
 
     return result
@@ -47,6 +41,7 @@ def H(r):
     result -- the hash index of the record r
     """
     return r[0]
+
     # # Convert the value of the join attribute into the digits
     # digits = [int(d) for d in str(r[0])]
 
@@ -171,8 +166,12 @@ def read_csv(filename):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--R-file", help="R file", required=True)
-    parser.add_argument("--S-file", help="S file", required=True)
+    parser.add_argument(
+        "--R-file", help="Path to file acting as left table", required=True
+    )
+    parser.add_argument(
+        "--S-file", help="Path to file acting as right table", required=True
+    )
     parser.add_argument(
         "--concurrency-count",
         help="Number of parallel concurrent run",
@@ -189,6 +188,6 @@ if __name__ == "__main__":
     R, S = read_csv(args.R_file), read_csv(args.S_file)
 
     elapsed_time, memory_usage = roja(R, S, args.concurrency_count, args.output_file)
-    print(f"Memory usage: {memory_usage} bytes or {memory_usage / 1024 / 1024} MB")
+    print(f"Memory usage: {memory_usage / 1024 / 1024} MB")
     print(f"Elapsed time: {elapsed_time} seconds")
     print("-------------------------")

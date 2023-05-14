@@ -7,8 +7,8 @@ import tracemalloc
 
 
 def hash(element):
-    # total = 0
     return element[0]
+    # total = 0
     # for digit in str(element[0]):
     #     total += int(digit)
     # return total
@@ -107,7 +107,7 @@ def soja(R, S, number_of_processor, output_file_path):
             ),
         )
         process_list.append(p)
-    
+
     for process in process_list:
         process.start()
 
@@ -141,8 +141,12 @@ def read_csv(filename):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--R-file", help="R file", required=True)
-    parser.add_argument("--S-file", help="S file", required=True)
+    parser.add_argument(
+        "--R-file", help="Path to file acting as left table", required=True
+    )
+    parser.add_argument(
+        "--S-file", help="Path to file acting as right table", required=True
+    )
     parser.add_argument(
         "--concurrency-count",
         help="Number of parallel concurrent run",
@@ -160,6 +164,6 @@ if __name__ == "__main__":
     R, S = read_csv(args.R_file), read_csv(args.S_file)
 
     elpased_time, memory_usage = soja(R, S, args.concurrency_count, args.output_file)
-    print(f"Memory usage: {memory_usage} bytes or {memory_usage / 1024 / 1024} MB")
+    print(f"Memory usage: {memory_usage / 1024 / 1024} MB")
     print(f"Elapsed time: {elpased_time} seconds")
     print("-------------------------")
