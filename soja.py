@@ -164,6 +164,6 @@ if __name__ == "__main__":
     R, S = read_csv(args.R_file), read_csv(args.S_file)
 
     elpased_time, memory_usage = soja(R, S, args.concurrency_count, args.output_file)
-    print(f"Memory usage: {memory_usage / 1024 / 1024} MB")
-    print(f"Elapsed time: {elpased_time} seconds")
+    print(f"Memory usage: {memory_usage / 1024 / 1024:.2f} MB")
+    print(f"Execution time: {elpased_time:.2f} seconds")
     print("-------------------------")

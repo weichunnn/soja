@@ -1,0 +1,88 @@
+Running ROJA program with 10000 rows in table R
+Memory usage: 332.36 MB
+Elapsed time: 26.64 seconds
+-------------------------
+Running SOJA program with 10000 rows in table R
+Memory usage: 292.09 MB
+Elapsed time: 14.49 seconds
+-------------------------
+Running ROJA program with 20000 rows in table R
+Memory usage: 409.43 MB
+Elapsed time: 29.37 seconds
+-------------------------
+Running SOJA program with 20000 rows in table R
+Memory usage: 292.03 MB
+Elapsed time: 13.60 seconds
+-------------------------
+Running ROJA program with 30000 rows in table R
+Memory usage: 484.02 MB
+Elapsed time: 30.60 seconds
+-------------------------
+Running SOJA program with 30000 rows in table R
+Memory usage: 291.06 MB
+Elapsed time: 15.02 seconds
+-------------------------
+Running ROJA program with 40000 rows in table R
+Memory usage: 558.10 MB
+Elapsed time: 30.51 seconds
+-------------------------
+Running SOJA program with 40000 rows in table R
+Memory usage: 292.62 MB
+Elapsed time: 13.73 seconds
+-------------------------
+Running ROJA program with 50000 rows in table R
+Memory usage: 635.28 MB
+Elapsed time: 30.88 seconds
+-------------------------
+Running SOJA program with 50000 rows in table R
+Memory usage: 324.21 MB
+Elapsed time: 14.64 seconds
+-------------------------
+Running ROJA program with 50% selectivity ratio
+Memory usage: 469.00 MB
+Elapsed time: 29.77 seconds
+-------------------------
+Running SOJA program with 50% selectivity ratio
+Memory usage: 288.53 MB
+Elapsed time: 14.43 seconds
+-------------------------
+Running ROJA program with 60% selectivity ratio
+Memory usage: 487.58 MB
+Execution time: 30.77 seconds
+-------------------------
+Running SOJA program with 60% selectivity ratio
+Memory usage: 296.27 MB
+Execution time: 13.64 seconds
+-------------------------
+Running ROJA program with 70% selectivity ratio
+Memory usage: 498.54 MB
+Execution time: 29.49 seconds
+-------------------------
+Running SOJA program with 70% selectivity ratio
+Memory usage: 292.68 MB
+Execution time: 14.26 seconds
+-------------------------
+Running ROJA program with 80% selectivity ratio
+Memory usage: 508.96 MB
+Execution time: 32.38 seconds
+-------------------------
+Running SOJA program with 80% selectivity ratio
+Memory usage: 292.97 MB
+Execution time: 13.78 seconds
+-------------------------
+Running ROJA program with 90% selectivity ratio
+Memory usage: 516.69 MB
+Execution time: 32.40 seconds
+-------------------------
+Running SOJA program with 90% selectivity ratio
+Memory usage: 288.55 MB
+Execution time: 13.94 seconds
+-------------------------
+Running ROJA program with 100% selectivity ratio
+Memory usage: 521.32 MB
+Execution time: 28.79 seconds
+-------------------------
+Running SOJA program with 100% selectivity ratio
+Memory usage: 288.56 MB
+Execution time: 14.21 seconds
+-------------------------
