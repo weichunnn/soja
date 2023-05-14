@@ -7,9 +7,6 @@ selectivity_ratio = [50, 60, 70, 80, 90, 100]
 ratings_file_path = "source/ratings_8000000.csv"
 algo_types = ["roja", "soja"]
 
-if ratings_file_path.endswith(".zip"):
-    throw("ratings file is in zip format, please unzip it first")
-
 for i, size in enumerate(table_sizes):
     for algo_type in algo_types:
         command = [
