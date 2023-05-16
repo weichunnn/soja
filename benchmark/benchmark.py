@@ -21,7 +21,7 @@ for i, size in enumerate(table_sizes):
         subprocess.check_call(command)
 
         # keep last record for checking
-        if i == len(file_sizes) - 1:
+        if i == len(table_sizes) - 1:
             open(f"output-{algo_type}.csv", "w").close()
 
 
@@ -41,5 +41,5 @@ for i, ratio in enumerate(selectivity_ratio):
         subprocess.check_call(command)
 
         # keep last record for checking
-        if i == len(file_sizes) - 1:
+        if i == len(table_sizes) - 1:
             open(f"output-{algo_type}.csv", "w").close()
