@@ -11,21 +11,21 @@ time_soja = [14.49, 13.60, 15.02, 13.73, 14.64]
 # Row count data
 row_count = [10000, 20000, 30000, 40000, 50000]
 
-# Plot Execution time vs Table (R) Size
-plt.plot(row_count, time_roja, label='ROJA', color='blue')
-plt.plot(row_count, time_soja, label='SOJA', color='red')
-plt.xlabel('Table (R) Size (number of rows)')
-plt.ylabel('Execution Time (seconds)')
-plt.title('Execution Time vs Table (R) Size')
+# Plot Execution Time vs Table (R) Size
+plt.plot(row_count, time_roja, label="ROJA", color="blue")
+plt.plot(row_count, time_soja, label="SOJA", color="red")
+plt.xlabel("Table (R) Size (number of rows)")
+plt.ylabel("Execution Time (seconds)")
+plt.title("Execution Time vs Table (R) Size")
 plt.legend()
 plt.show()
 
-# Plot memory usage vs Table (R) Size
-plt.plot(row_count, memory_roja, label='ROJA', color='blue')
-plt.plot(row_count, memory_soja, label='SOJA', color='red')
-plt.xlabel('Table (R) Size (number of rows)')
-plt.ylabel('Memory Usage (MB)')
-plt.title('Memory Usage vs Table (R) Size')
+# Plot Memory Usage vs Table (R) Size
+plt.plot(row_count, memory_roja, label="ROJA", color="blue")
+plt.plot(row_count, memory_soja, label="SOJA", color="red")
+plt.xlabel("Table (R) Size (number of rows)")
+plt.ylabel("Memory Usage (MB)")
+plt.title("Memory Usage vs Table (R) Size")
 plt.legend()
 plt.show()
 
@@ -40,21 +40,20 @@ time_soja = [14.43, 13.64, 14.26, 13.78, 13.94, 14.21]
 # Selectivity ratio data
 selectivity_ratio = [50, 60, 70, 80, 90, 100]
 
-
-# Plot memory usage
-plt.plot(selectivity_ratio, memory_roja, label='ROJA', color='blue')
-plt.plot(selectivity_ratio, memory_soja, label='SOJA', color='red')
-plt.xlabel('Selectivity Ratio')
-plt.ylabel('Memory Usage (MB)')
-plt.title('Memory Usage vs Selectivity Ratio')
+# Plot Execution Time vs Selectivity Ratio
+plt.plot(selectivity_ratio, time_roja, label="ROJA", color="blue")
+plt.plot(selectivity_ratio, time_soja, label="SOJA", color="red")
+plt.xlabel("Selectivity Ratio")
+plt.ylabel("Execution Time (s)")
+plt.title("Memory Usage vs Selectivity Ratio")
 plt.legend()
 plt.show()
 
-# Plot Execution time
-plt.plot(selectivity_ratio, time_roja, label='ROJA', color='blue')
-plt.plot(selectivity_ratio, time_soja, label='SOJA', color='red')
-plt.xlabel('Selectivity Ratio')
-plt.ylabel('Execution time (s)')
-plt.title('Memory Usage vs Selectivity Ratio')
+# Plot Memory Usage vs Selectivity Ratio
+plt.plot(selectivity_ratio, memory_roja, label="ROJA", color="blue")
+plt.plot(selectivity_ratio, memory_soja, label="SOJA", color="red")
+plt.xlabel("Selectivity Ratio")
+plt.ylabel("Memory Usage (MB)")
+plt.title("Memory Usage vs Selectivity Ratio")
 plt.legend()
 plt.show()
