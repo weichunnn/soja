@@ -4,6 +4,15 @@ import multiprocessing as mp
 import time
 import tracemalloc
 
+"""
+This file contains the implementation of ROJA with slight adaptation for benchmarking purposes.
+The algorithm had been referenced from FIT3182: Parallel_outer_join workbook. Changes include:
+- Adding benchmarking code and memory profiler
+- Adding function to cater for 1 to many outer join relationship
+- Modify hash function to use the first element of the join attribute
+- Addition of ArgumentParser to allow for command line arguments
+"""
+
 
 def hash_distribution(T, n):
     """distribute data using hash partitioning
@@ -159,6 +168,10 @@ def roja(L, R, n, output_file_path):
 
 
 def read_csv(filename):
+    """Read data from a CSV file.
+
+    filename -- The path to the CSV file.
+    """
     with open(filename, "r") as f:
         data = f.readlines()[1:]  # skip first header line
     return [tuple(line.strip().split(",")) for line in data]
