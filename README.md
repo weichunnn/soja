@@ -27,3 +27,6 @@ Refer to `benchmark/` and `benchmark/benchmark.py` folder for implementations
 make benchmark
 ```
 
+## Reference
+
+- [SOJA Paper](https://research.monash.edu/en/publications/soja-a-memory-efficent-small-large-outer-join-for-mpi)
