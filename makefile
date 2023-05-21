@@ -3,8 +3,8 @@
 # Run benchmark test
 benchmark:
 	@echo "Benchmarking..."
-	@if [ -f benchmark/source/ratings_7000000.csv.gz ]; then \
-			gzip -d benchmark/source/ratings_7000000.csv.gz; \
+	@if [ -f benchmark/source/ratings_6500000.csv.gz ]; then \
+			gzip -d benchmark/source/ratings_6500000.csv.gz; \
 	fi
 	@cd benchmark && python benchmark.py
 

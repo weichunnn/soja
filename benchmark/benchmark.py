@@ -3,7 +3,7 @@ import subprocess
 # test parameters for movies dataset
 table_sizes = [10000, 20000, 30000, 40000, 50000]
 selectivity_ratio = [50, 60, 70, 80, 90, 100]
-ratings_file_path = "source/ratings_7000000.csv"
+ratings_file_path = "source/ratings_6500000.csv"
 algo_types = ["roja", "soja"]
 
 for i, size in enumerate(table_sizes):
