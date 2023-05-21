@@ -189,6 +189,7 @@ if __name__ == "__main__":
         "--concurrency-count",
         help="Number of parallel concurrent run",
         required=False,
+        type=int,
         default=mp.cpu_count(),
     )
     parser.add_argument(
