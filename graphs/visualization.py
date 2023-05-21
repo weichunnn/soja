@@ -45,7 +45,7 @@ plt.plot(selectivity_ratio, time_roja, label="ROJA", color="blue")
 plt.plot(selectivity_ratio, time_soja, label="SOJA", color="red")
 plt.xlabel("Selectivity Ratio")
 plt.ylabel("Execution Time (s)")
-plt.title("Memory Usage vs Selectivity Ratio")
+plt.title("Execution Time vs Selectivity Ratio")
 plt.legend()
 plt.show()
 
