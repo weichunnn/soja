@@ -14,7 +14,7 @@ Note that, for this POC, the algorithm expects the join attribute to be the firs
 
 ## Benchmark
 
-The benchmark test evaluates the SOJA algorithm against the ROJA algorithm on execution time and memory usasge based on the:
+The benchmark test evaluates the SOJA algorithm against the ROJA algorithm on execution time and memory usage based on the:
   - Increse in size of left table
   - Increase in selectivity ratio
   - Increase in data skewness (Not tested due to SOJA's prerequisites of balanced partitions)
