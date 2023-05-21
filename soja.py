@@ -211,14 +211,14 @@ def soja(R, S, number_of_processor, output_file_path):
 
     # stop timer and memory profiler
     # calculate elapsed time and total memory used
-    elpased_time = time.perf_counter() - start_time
+    elapsed_time = time.perf_counter() - start_time
 
     snapshot = tracemalloc.take_snapshot()
     top_stats = snapshot.statistics("lineno")
 
     total_memory = sum(stat.size for stat in top_stats)
 
-    return elpased_time, total_memory
+    return elapsed_time, total_memory
 
 
 def read_csv(filename):
@@ -259,7 +259,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     R, S = read_csv(args.R_file), read_csv(args.S_file)
 
-    elpased_time, memory_usage = soja(R, S, args.concurrency_count, args.output_file)
+    elapsed_time, memory_usage = soja(R, S, args.concurrency_count, args.output_file)
     print(f"Memory usage: {memory_usage / 1024 / 1024:.2f} MB")
-    print(f"Execution time: {elpased_time:.2f} seconds")
+    print(f"Execution time: {elapsed_time:.2f} seconds")
     print("-------------------------")
